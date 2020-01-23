@@ -11,10 +11,17 @@ u = np.linspace(0, 2.0 * np.pi, endpoint=True, num=50)
 v = np.linspace(0, 1, endpoint=True, num=50)
 u, v = np.meshgrid(u, v)
 
+r=.5
+Xnot=.5
+Ynot=.5
 
-X=(1-v)*(0)+ v*(1+(.05*np.cos(u)))
-Y=(1-v)*(0)+ v*(1+(.05*np.sin(u)))
+X=(1-v)*(0)+ v*(Xnot+(r*np.cos(u)))
+Y=(1-v)*(0)+ v*(Ynot+(r*np.sin(u)))
 Z=(1-v)*(1)+v*(-1)
+
+Xt=(4*Xnot+4*r*np.cos(u))/(2*r**2+2*Xnot*r*np.cos(u)+2*Ynot*r*np.sin(u)+1)
+Yt=(4*Ynot+4*r*np.sin(u))/(2*r**2+2*Xnot*r*np.cos(u)+2*Ynot*r*np.sin(u)+1)
+Zt=1-(8/((2*r**2+2*Xnot*r*np.cos(u)+2*Ynot*r*np.sin(u)+1)))
 
 
 # draw sphere
@@ -24,6 +31,7 @@ Yp = np.sin(n)*np.sin(p)
 Zp = np.cos(p)
 ax.plot_surface(Xp, Yp, Zp, cmap=cm.coolwarm)
 
+ax.plot_surface(Xt,Yt,Zt,cmap=cm.gray)
 
 ax.set_xlim3d(-1.5, 1.5)
 ax.set_ylim3d(-1.5, 1.5)
